@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  /* Bundled Font Family Variables */
+  --font-outfit: 'Outfit';
+  --font-jakarta: 'Plus Jakarta Sans';
+  --font-jetbrains: 'JetBrains Mono';
+
+  /* Core Dark Canvas & Surfaces (60-30-10 System) */
+  --bg-canvas: #06070a;
+  --bg-surface: #0d111a;
+  --bg-surface-elevated: #131926;
+  --bg-surface-hover: #171f30;
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  /* Typography Colors (WCAG AA compliant on dark surfaces) */
+  --text-primary: #f8fafc;
+  --text-secondary: #b4bcd0;
+  --text-muted: #7e88a1;
+
+  /* Neon Accent Palette (10% Accent Budget) */
+  --accent-cyan: #22d3ee;
+  --accent-purple: #a855f7;
+  --accent-magenta: #ec4899;
+
+  /* Subtle Neon Glow Tokens */
+  --glow-cyan: 0 0 24px rgba(34, 211, 238, 0.22);
+  --glow-purple: 0 0 24px rgba(168, 85, 247, 0.22);
+  --glow-magenta: 0 0 24px rgba(236, 72, 153, 0.22);
+
+  /* Radius & Layout Scale */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --container-max: 75rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, monospace;
+
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-elevated: var(--bg-surface-elevated);
+  --color-foreground: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-neon-cyan: var(--accent-cyan);
+  --color-neon-purple: var(--accent-purple);
+  --color-neon-magenta: var(--accent-magenta);
+}
+
+@layer base {
+  html {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: rgba(34, 211, 238, 0.25);
+    color: #ffffff;
+  }
+}
+
+/* Reusable Subtle Surface & Glow Utilities */
+.surface-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.surface-elevated {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-strong);
+}
+
+.neon-glow-cyan {
+  box-shadow: var(--glow-cyan);
+}
+
+.neon-glow-purple {
+  box-shadow: var(--glow-purple);
+}
+
+.neon-glow-magenta {
+  box-shadow: var(--glow-magenta);
+}
+
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.neon-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent-cyan) 0%,
+    var(--accent-purple) 50%,
+    var(--accent-magenta) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 7s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-gradient-text {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}
+
